@@ -103,7 +103,9 @@ pub async fn run(args: Args) -> Result<()> {
             .await
         {
             Ok(bsky_config) => {
-                match BskyAtpAgentBuilder::new(ReqwestClient::new(&config.bluesky.pds_url))
+                let pds_url = &config.bluesky.pds_url.unwrap_or("https://bsky.social".to_string());
+                match BskyAtpAgentBuilder::new(
+                    ReqwestClient::new(pds_url))
                     .config(bsky_config)
                     .build()
                     .await
@@ -118,13 +120,20 @@ pub async fn run(args: Args) -> Result<()> {
                         agent
                     }
                     Err(_) => {
-                        get_new_bluesky_agent(&config.bluesky.email, &config.bluesky.app_password, &config.bluesky.pds_url)
+                        get_new_bluesky_agent(
+                            &config.bluesky.email, 
+                            &config.bluesky.app_password, 
+                            &pds_url)
                             .await?
                     }
                 }
             }
             Err(_) => {
-                get_new_bluesky_agent(&config.bluesky.email, &config.bluesky.app_password, &config.bluesky.pds_url).await?
+                get_new_bluesky_agent(
+                    &config.bluesky.email, 
+                    &config.bluesky.app_password, 
+                    &config.bluesky.pds_url.unwrap_or("https://bsky.social".to_string()))
+                    .await?
             }
         };
     let bsky_session = bsky_agent
