@@ -70,7 +70,7 @@ pub async fn bluesky_register() -> Result<BlueskyConfig> {
     // See https://github.com/sugyan/atrium/issues/246
     Ok(BlueskyConfig {
         email,
-        pds_url: Some(pds_url),
+        pds_url,
         app_password,
         sync_reposts: true,
         sync_hashtag: None,

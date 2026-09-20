@@ -103,10 +103,7 @@ pub async fn run(args: Args) -> Result<()> {
             .await
         {
             Ok(bsky_config) => {
-                let pds_url = &config
-                    .bluesky
-                    .pds_url
-                    .unwrap_or("https://bsky.social".to_string());
+                let pds_url = &config.bluesky.pds_url;
                 match BskyAtpAgentBuilder::new(ReqwestClient::new(pds_url))
                     .config(bsky_config)
                     .build()
@@ -135,10 +132,7 @@ pub async fn run(args: Args) -> Result<()> {
                 get_new_bluesky_agent(
                     &config.bluesky.email,
                     &config.bluesky.app_password,
-                    &config
-                        .bluesky
-                        .pds_url
-                        .unwrap_or("https://bsky.social".to_string()),
+                    &config.bluesky.pds_url,
                 )
                 .await?
             }

@@ -43,7 +43,7 @@ pub struct BlueskyConfig {
     pub email: String,
     pub app_password: String,
     #[serde(default = "config_pds_url_default")]
-    pub pds_url: Option<String>,
+    pub pds_url: String,
     #[serde(default = "config_true_default")]
     pub sync_reposts: bool,
     #[serde_as(as = "NoneAsEmptyString")]
@@ -55,8 +55,8 @@ pub struct BlueskyConfig {
     pub delete_old_favs: bool,
 }
 
-fn config_pds_url_default() -> Option<String> {
-    Some("https://bsky.social".to_owned())
+fn config_pds_url_default() -> String {
+    "https://bsky.social".to_owned()
 }
 
 fn config_true_default() -> bool {
