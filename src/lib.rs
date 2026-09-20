@@ -122,7 +122,7 @@ pub async fn run(args: Args) -> Result<()> {
                         get_new_bluesky_agent(
                             &config.bluesky.email,
                             &config.bluesky.app_password,
-                            &pds_url,
+                            pds_url,
                         )
                         .await?
                     }
